@@ -1,6 +1,5 @@
-
-
 import datetime
+import paho.mqtt.client as mqtt
 from datetime import timedelta
 
 
@@ -9,12 +8,25 @@ from FoodDispenserRepository import FoodDispenserRepository
 
 
 class Mqtt:
-
+    mqttc = mqtt.Client()
 
     repository = FoodDispenserRepository()
 
     pastDateMorning = datetime.datetime.utcnow() - timedelta(days=1)
     pastDateEvening = datetime.datetime.utcnow() - timedelta(days=1)
+
+    def __init__(self):
+        print("Hej")
+        myhost = "mqtt.flespi.io"
+        self.mqttc.on_message = self.on_message
+        self.mqttc.on_connect = self.on_connect
+        self.mqttc.on_publish = self.on_publish
+        self.mqttc.on_subscribe = self.on_subscribe
+        self.mqttc.username_pw_set("COjYLNDRgB04mkyUpvhqPdhgGW2qfnkHZttz6Wgal55xftgvMlJqoPuVBn9Gyjdn", "password")
+        self.mqttc.connect(myhost, 1883)
+        self.mqttc.subscribe("Dispenser/1/request")
+        self.mqttc.loop_forever()
+        print("farvel")
 
 
     #This happens when connecting
