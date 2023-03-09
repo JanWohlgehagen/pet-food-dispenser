@@ -30,11 +30,11 @@ class Mqtt:
 
 
     #This happens when connecting
-    def on_connect(self, obj, flags, rc):
+    def on_connect(self, this, obj, flags, rc):
         print("rc: " + str(rc))
 
     # Getting a message from subscribe
-    def on_message(self, obj, msg):
+    def on_message(self, this, obj, msg):
         if self.checkTime():
             self.mqttc.publish("Dispenser/1/response", "Food")
 
@@ -43,7 +43,7 @@ class Mqtt:
         print("mid: " + str(mid))
 
     # On subscribing to messages
-    def on_subscribe(self, obj, mid, granted_qos):
+    def on_subscribe(self, this, obj, mid, granted_qos):
         print("Subscribed: " + str(mid) + " " + str(granted_qos))
 
     # Taking care of logging

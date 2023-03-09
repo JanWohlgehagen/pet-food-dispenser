@@ -16,7 +16,7 @@ class FoodDispenserRepository:
         cursor = conn.cursor()
         cursor.execute(sql)
 
-    def saveData(date):
+    def saveData(self, date):
         global conn
         sql = 'INSERT INTO FOOD_DISPENSED_AT_TIME (topic) VALUES (?)'
         dateString = date.strftime("%m/%d/%Y, %H:%M:%S")
