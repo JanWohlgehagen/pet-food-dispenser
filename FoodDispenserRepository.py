@@ -6,15 +6,16 @@ conn = sqlite3.connect('HundeOplevelser.db')
 
 class FoodDispenserRepository:
 
-    def __init__(self):
+    def EnsureCreated(self):
         sql = '''
-            CREATE TABLE IF NOT EXISTS FOOD_DISPENSED_AT_TIME (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                topic TEXT NOT NULL
-            )
-            '''
+                    CREATE TABLE IF NOT EXISTS FOOD_DISPENSED_AT_TIME (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        topic TEXT NOT NULL
+                    )
+                    '''
         cursor = conn.cursor()
         cursor.execute(sql)
+        cursor.close()
 
     def saveData(self, date):
         global conn
